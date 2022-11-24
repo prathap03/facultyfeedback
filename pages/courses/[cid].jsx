@@ -79,7 +79,7 @@ const Course = () => {
       const checkExists = async(id)=>{
         try{
           const post = {cid:id,rollNo:JSON.parse(localStorage.getItem("userInfo")).rollNo}
-        const data = await Axios.post("http://localhost:5000/api/feedback/check",post)
+        const data = await Axios.post("https://facultyportal.herokuapp.com/api/feedback/check",post)
         
         if(data){
           setExists(data.data);
