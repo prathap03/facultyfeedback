@@ -24,7 +24,7 @@ export default function Home() {
     }
 
     const fetchCourses = async () => {
-      const { data } = await Axios.get('http://localhost:5000/api/users/course/get');
+      const { data } = await Axios.get('https://facultyportal.herokuapp.com/api/users/course/get');
       setCourses(data);
     }
     fetchCourses()

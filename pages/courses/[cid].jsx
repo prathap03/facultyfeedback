@@ -67,7 +67,7 @@ const Course = () => {
 
         const data = {rollNo:rollNo,data:{courseId:courseId,courseCode:courseCode,courseTitle:courseTitle,facultyId:fid,facultyName:facultyName,feedback:details}}
 
-        const result = await Axios.post("http://localhost:5000/api/feedback/insert",data).then((result)=>{
+        const result = await Axios.post("https://facultyportal.herokuapp.com/api/feedback/insert",data).then((result)=>{
           router.push("/success")
         })
 

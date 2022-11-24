@@ -41,7 +41,7 @@ function report() {
 
   const generateReport = async () => {
     const { data } = await Axios.get(
-      "http://localhost:5000/api/feedback/generate"
+      "https://facultyportal.herokuapp.com/api/feedback/generate"
     );
     setReport(data);
     setFacultyName(
