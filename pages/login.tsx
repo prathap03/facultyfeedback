@@ -43,7 +43,7 @@ const Login: NextPage = () => {
     
     try {
 
-      const { data } = await Axios.post('https://facultyportal.herokuapp.com//api/users/signin', { rollNo, password });
+      const { data } = await Axios.post('https://facultyportal.herokuapp.com/api/users/signin', { rollNo, password });
       localStorage.setItem('userInfo', JSON.stringify(data));
       const userInfo = JSON.stringify(data);
     if(userInfo){
