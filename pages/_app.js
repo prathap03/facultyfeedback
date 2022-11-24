@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import Router from 'next/router'
 import {useState,useEffect} from 'react';
-import Loader from '../components/loader';
+import Loader from '../components/Loader';
 import {ClipLoader} from 'react-spinners';
 
 
