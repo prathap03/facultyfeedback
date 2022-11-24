@@ -101,7 +101,7 @@ const Course = () => {
     
      try{
         const fetchFaculty = async (fid)=>{
-            const {data} = await Axios.get(`http://localhost:5000/api/users/course/faculty/${fid}`)
+            const {data} = await Axios.get(`https://facultyportal.herokuapp.com/api/users/course/faculty/${fid}`)
             setFacultyDetails(data);
             console.log(data);
          }   
@@ -109,7 +109,7 @@ const Course = () => {
         const fetchCourse = async (cid)=>{
             if(cid){
                
-                const {data} = await Axios.get(`http://localhost:5000/api/users/course/student/${cid}`)
+                const {data} = await Axios.get(`https://facultyportal.herokuapp.com/api/users/course/student/${cid}`)
                 setCourseDetails(data);
                 console.log(courseDetails)
                 let fid;
