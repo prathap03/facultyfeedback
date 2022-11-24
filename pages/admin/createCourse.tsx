@@ -88,7 +88,7 @@ const createCourse: NextPage = () => {
               <h1 className="text-[2rem]">Create Course</h1>
               <div className="flex flex-col gap-2">
                 <h1>Course Code:</h1>
-                <input onInput={(e)=>{setCourseCode(e.target.value)}} placeholder="Ex. 20MA204" className="rounded-md p-2 h-[2rem] shadow-sm" type="text" required/>
+                <input  onInput={(e)=>{setCourseCode(e.target.value)}}  placeholder="Ex. 20MA204" className="rounded-md p-2 h-[2rem] shadow-sm" type="text" required/>
               </div>
               <div className="flex flex-col gap-2">
                 <h1>Course Title:</h1>

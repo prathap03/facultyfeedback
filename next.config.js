@@ -8,6 +8,7 @@ const nextConfig = {
   typescript:{
     ignoreBuildErrors: true,
   },
+  
   images: {
     domains: [
       "bme.srec.ac.in",

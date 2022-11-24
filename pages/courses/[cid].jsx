@@ -26,6 +26,7 @@ const Course = () => {
     const [attention,setAttention] = useState(null)
     const [examples,setExamples] = useState(null)
     const [exists,setExists]=useState(false)
+    const [materials,setMaterials]=useState(null);
  
     const criterions = [
        {name:"1. Punctuality",set:setPunctuality},
@@ -37,7 +38,8 @@ const Course = () => {
        {name:"7. Ability to maintain discipline",set:seDiscipline},
        {name:"8. Provision of feedback on learning deficiency",set:setFeedback},
        {name:"9. Ability to sustain students attention and interest",set:setAttention},
-       {name:"10. Citations, Examples and Illustrations",set:setExamples}
+       {name:"10. Provision of sufficient Course materials",set:setMaterials},
+       {name:"11. Citations, Examples and Illustrations",set:setExamples}
     ]
 
     const handleSubmit = async ()=>{
@@ -52,6 +54,7 @@ const Course = () => {
           discipline:parseInt(discipline),
           feedback:parseInt(feedback),
           attention:parseInt(attention),
+          materials:parseInt(materials),
           examples:parseInt(examples)
         }
 
@@ -75,7 +78,7 @@ const Course = () => {
 
       const checkExists = async(id)=>{
         try{
-          const post = {cid:id}
+          const post = {cid:id,rollNo:JSON.parse(localStorage.getItem("userInfo")).rollNo}
         const data = await Axios.post("http://localhost:5000/api/feedback/check",post)
         
         if(data){
@@ -139,23 +142,25 @@ const Course = () => {
     }, [cid])
     
     return (
-        <div className="flex flex-col h-screen bg-slate-50">
+      <div className="flex flex-col h-[100%] min-h-screen w-[100vw] md:w-[100%] bg-slate-100 ">
         <Header/>
   
-            <div className="  w-[100%] flex flex-grow flex-col" >
+            <div className="  w-[100%] flex flex-grow flex-col " >
             {!courseDetails && !facultyDetails || !courseDetails|| !facultyDetails ? (<h1>Loading</h1>):(
-              <div className="flex h-[100%]">
+              <div className="flex h-[100%] min-h-screen">
               
               {/* <div className="w-[20.438rem] ml-2 hidden bg-[#001529]/[89%] mt-5 rounded-tr-2xl shadow-xl rounded-xl rounded-bl-2xl h-[50rem] md:flex">hello</div> */}
-              <Navbar/>
+             <div className='hidden md:flex '>
+             <Navbar/>
+             </div>
               
-              <div className="flex items-center flex-col flex-grow p-[2rem]" >
+              <div className="flex items-center flex-col flex-grow md:p-[2rem] p-[1rem]" >
                 <div className="flex gap-4 w-[100%] p-4  h-max">
-                  <div className="w-[9.25rem] h-[11.813rem] bg-white rounded-xl
+                  <div className="w-[5.25rem] md:h-[11.813rem] md:w-[8.9rem] h-[5rem] bg-white rounded-xl
                    shadow-md">
                   <Image className="rounded-md " src={facultyDetails.profileUrl} width={150} height={200} layout='intrinsic'  />
                   </div>
-                  <div className="text-[1.6rem] leading-[2.32rem]" >
+                  <div className="md:text-[1.6rem] text-[0.7rem] leading-[1.21rem] md:leading-[2.32rem]" >
                   
                   <h1>Name: {facultyDetails?facultyDetails.name:"Loading..."}</h1>
                   <h1>Course Code: {courseDetails?courseDetails.courseId:"Loading..."}</h1>
@@ -166,24 +171,24 @@ const Course = () => {
                   </div>
                   
                 </div>
-                <h1 className=" text-[2rem]">{courseDetails.courseId} - {courseDetails.courseTitle}</h1>
+                <h1 className=" md:text-[2rem] text-[1.3rem]">{courseDetails.courseId} - {courseDetails.courseTitle}</h1>
                 {!(exists)?(
-                  <div className="w-[100%] h-max min-h-screen p-4 rounded-md bg-slate-200  shadow-md">
+                  <div className="w-[100%] h-max min-h-screen md:p-4 p-2 rounded-md bg-slate-200  shadow-md">
                   <div className="flex flex-col gap-8 mt-10 " >
                     {criterions.map((criterion)=>{
                        return(
-                          <div className="flex flex-col gap-4 p-4 bg-white/90 w-[100%] rounded-2xl shadow-md">
-                          <h1 className="text-[1.8rem] ">{criterion.name}</h1>
-                            <fieldset name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} onChange={(e)=>{criterion.set(e.target.value)}} className='flex gap-4 text-[1.6rem]'>
-                            <input value={1} type="radio"  className="scale-150" name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
+                          <div className="flex flex-col gap-4 md:p-4 p-2 bg-white/90 w-[100%] rounded-2xl shadow-md">
+                          <h1 className="md:text-[1.8rem]  text-[0.8rem]">{criterion.name}</h1>
+                            <fieldset name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} onChange={(e)=>{criterion.set(e.target.value)}} className='flex md:gap-4 gap-1 text-[0.7rem] md:text-[1.6rem]'>
+                            <input value={1} type="radio"  className="md:scale-150" name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
                             <label htmlFor="1">Poor</label>
-                            <input value={2} type="radio" className="scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
+                            <input value={2} type="radio" className="md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
                             <label htmlFor="Moderate">Moderate</label>
-                            <input value={3} type="radio" className="scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
+                            <input value={3} type="radio" className="md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
                             <label htmlFor="Good">Good</label>
-                            <input value={4} type="radio" className="scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
+                            <input value={4} type="radio" className="md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
                             <label htmlFor="Moderate">Very Good</label>
-                            <input value={5} type="radio" className="scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
+                            <input value={5} type="radio" className="md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
                             <label htmlFor="Moderate">Excellent</label>
                             </fieldset>
                 
@@ -204,13 +209,13 @@ const Course = () => {
                   
                 </div>
                 ):(
-                  <div className='mt-2 text-[2rem] bg-green-200 p-4 shadow-lg rounded-lg w-[100%] text-green-600'>
+                  <div className='mt-2 md:text-[2rem] bg-green-200 p-4 shadow-lg rounded-lg w-[100%] text-green-600'>
                     <h1>Feedback Completed</h1>
                   </div>
                 )}
   {!(exists)?(<div className="flex w-[100%] justify-end mt-10">
       
-      <button onClick={()=>{handleSubmit()}} className="p-4 m-2 text-white text-[1.4rem] bg-blue-500 rounded-full">SUBMIT</button>
+      <button onClick={()=>{handleSubmit()}} className="md:p-4 p-2 m-2 text-white md:text-[1.4rem] bg-blue-500 rounded-full">SUBMIT</button>
       </div>
 
         
@@ -224,9 +229,8 @@ const Course = () => {
             )}
             
             </div>
-            <div className='flex relative bottom-0 w-screen  text-white bg-[#001529]/[89%] flex-col items-center  justify-center p-4'>
+            <div className='flex text-[0.5rem] md:text-[1rem]  relative bottom-0 w-screen  text-white bg-[#001529]/[89%] flex-col items-center  justify-center p-4'>
               <h1>with ❤️ IT</h1> 
-      
               <h1>©Copyright 2022</h1>
              
             </div>

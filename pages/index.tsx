@@ -34,24 +34,24 @@ export default function Home() {
 
   },[])
   return (
-    <div className="flex flex-col w-screen h-screen bg-slate-100 ">
+    <div className="flex flex-col w-screen h-screen md:w-screen bg-slate-100 ">
     <Header/>
         <div className="  w-[100%] h-screen  ">
           <div className="flex flex-grow h-[100%]">
   
           {/* <div className="w-[20.438rem]  hidden bg-[#001529]/[89%]  rounded-tr-2xl shadow-xl  rounded-br-2xl h-[50rem] md:flex">hello</div> */}
-         <div className='h-[91.2%] flex '>
+         <div className='h-[91.2%] md:flex hidden'>
          <Navbar/>
          </div>
          
           <div className="flex items-center flex-col flex-grow p-[2rem]  ">
-         <div className='flex justify-start text-[1.6rem] mb-2  w-[80%]'>
+         <div className='flex justify-start md:text-[1.6rem] mb-2 w-[100%]  md:w-[80%]'>
          <h1>Courses Enrolled: IT - 2nd Year - Sem 3 2022-23</h1>
          </div>
-         <div className='flex flex-col gap-4 w-[80%]'>
+         <div className='flex flex-col gap-4 w-[100%] md:w-[80%]'>
           {courses.map((course)=>{
             return (
-              <Link href={`courses/${course._id}`} className='flex p-4 h-[100%] w-[100%] bg-white shadow-xl rounded-md justify-center text-[1.7rem] '>
+              <Link href={`courses/${course._id}`} className='flex p-4 h-[100%] w-[100%] bg-white shadow-xl rounded-md text-[0.8rem] justify-center md:text-[1.7rem] '>
         
               <h1>{course.courseId} - {course.courseTitle}</h1>
               
@@ -76,7 +76,7 @@ export default function Home() {
         </div>
         
         </div>
-        <div className=" flex absolute bottom-0 w-screen  sticky-bottom-0 text-white bg-[#001529]/[100%] flex-col items-center justify-center flex-grow p-4">
+        <div className=" flex absolute bottom-0 w-screen text-[0.5rem] md:text-[1rem] sticky-bottom-0 text-white bg-[#001529]/[100%] flex-col items-center justify-center md:flex-grow p-4">
           <h1>with ❤️ IT</h1>
           <h1>©Copyright 2022</h1>
         </div>
