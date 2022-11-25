@@ -51,12 +51,12 @@ export default function Profile() {
                      ):<h1>Loading...</h1>}
                 
                  <div className='flex text-[0.6rem] md:text-[1rem] flex-col gap-2'>
-                 <h1>Name: {studentDetails ? studentDetails.name : "loading.."}</h1>
-                 <h1>Dept & Year : {studentDetails ? studentDetails.department+" - " + studentDetails.year+"nd Year" : "loading.."} </h1>
-                 <h1>Roll No: {studentDetails? studentDetails.rollNo : "loading.."}</h1>
-                 <h1>Section: {userDetails ? userDetails.class : "loading.."}</h1>
-                 <h1>Batch: {studentDetails ? studentDetails.batch : "loading.."}</h1>
-                 <h1>email: {studentDetails ? studentDetails.email : "loading.."}</h1>
+                 <h1>Name: {studentDetails ? studentDetails.name : <span className='animate-pulse'>loading..</span>}</h1>
+                 <h1>Dept & Year : {studentDetails ? studentDetails.department+" - " + studentDetails.year+"nd Year" : <span className='animate-pulse'>loading..</span>} </h1>
+                 <h1>Roll No: {studentDetails? studentDetails.rollNo :<span className='animate-pulse'>loading..</span>}</h1>
+                 <h1>Section: {userDetails ? userDetails.class : <span className='animate-pulse'>loading..</span>}</h1>
+                 <h1>Batch: {studentDetails ? studentDetails.batch : <span className='animate-pulse'>loading..</span>}</h1>
+                 <h1>email: {studentDetails ? studentDetails.email : <span className='animate-pulse'>loading..</span>}</h1>
                  </div>
                 
                  </>

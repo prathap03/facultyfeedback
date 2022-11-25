@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/courses/[cid].tjs", "pages/courses/[cid].js"  ],
+, "pages/courses/[cid].tjs", "pages/courses/[cid].js", "pages/admin/registerStudent.jsx"  ],
   "exclude": [
     "node_modules"
   ]
