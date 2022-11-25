@@ -47,10 +47,10 @@ const registerStudent: NextPage = () => {
     }
 
   return (
-    <div className="flex flex-col h-[100%] bg-slate-400/[60%] ">
+    <div className="flex flex-col h-[100%] min-h-screen bg-slate-400/[60%] ">
       <Header />
       {/*admin header*/}
-      <div className="h-[100%] flex  w-[100%] ">
+      <div className="h-[100%] flex-grow flex  w-[100%] ">
         <Navbar />
         <div className="flex w-[100%]">
           <div className="flex  items-center flex-col flex-grow p-[2rem]  ">
