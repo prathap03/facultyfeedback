@@ -31,8 +31,7 @@ function MyApp({ Component, pageProps }) {
 
   return( 
   <>
-  {isLoading && (<div className='flex items-center justify-center w-screen h-screen '><ClipLoader size={80}   color="#3693d6"
-       /></div>)}
+  {isLoading && (<div className='flex items-center justify-center w-screen h-screen '><ClipLoader size={80}   color="#3693d6"/></div>)}
   <Component {...pageProps} />
   </>
   )
