@@ -8,12 +8,14 @@ import Navbar from '../components/navbar';
 import getCourses  from '../utils/courseAction';
 import styles from '../styles/Home.module.css'
 import Axios from 'axios';
+import { ClipLoader } from 'react-spinners';
 
 export default function Home() {
   const router = useRouter() 
 
 
   var [courses,setCourses]=useState([])
+  const [loading,setLoading] = useState(false);
 
   useEffect(() => {
     if (!(localStorage.getItem("userInfo"))) {
@@ -24,8 +26,10 @@ export default function Home() {
     }
 
     const fetchCourses = async () => {
+      setLoading(true);
       const { data } = await Axios.get('https://facultyportal.herokuapp.com/api/users/course/get');
       setCourses(data);
+      setLoading(false);
     }
     fetchCourses()
     console.log(courses)
@@ -48,22 +52,26 @@ export default function Home() {
          <div className='flex justify-start md:text-[1.6rem] mb-2 w-[100%]  md:w-[80%]'>
          <h1>Courses Enrolled: IT - 2nd Year - Sem 3 2022-23</h1>
          </div>
-         <div className='flex flex-col gap-4 w-[100%] md:w-[80%]'>
-          {courses.map((course)=>{
-            return (
-              <Link href={`courses/${course._id}`} className='flex p-4 h-[100%] w-[100%] bg-white shadow-xl rounded-md text-[0.8rem] justify-center md:text-[1.7rem] '>
-        
-              <h1>{course.courseId} - {course.courseTitle}</h1>
-              
-             </Link>
-            )
-          })}
-         
-        
-        
-
-
-         </div>
+          {!loading?(
+             <div className='flex flex-col gap-4 w-[100%] md:w-[80%]'>
+             {courses.map((course)=>{
+               return (
+                 <Link href={`courses/${course._id}`} className='flex p-4 h-[100%] w-[100%] bg-white shadow-xl rounded-md text-[0.8rem] justify-center md:text-[1.7rem] '>
+           
+                 <h1>{course.courseId} - {course.courseTitle}</h1>
+                 
+                </Link>
+               )
+             })}
+            
+           
+           
+   
+   
+            </div>
+          ):(<div className='flex  m-4 justify-center items-center w-[100%] flex-grow'>
+            <ClipLoader size={60}   color="#3693d6"/>
+          </div>)}
       
          
         

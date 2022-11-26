@@ -74,11 +74,16 @@ const Login: NextPage = () => {
        </title>
      </Head>
 <div>
+  
 <Image className="relative" src="/srecbg.jpg"  layout="fill"/>
-<div className="relative flex items-center justify-center w-screen h-screen">
+<div className="relative flex flex-col items-center justify-center w-screen h-screen gap-2">
+{error?( <h1 className="w-[528px] text-[1.4rem] backdrop-blur-sm p-2 mt-5 text-red-600 bg-red-200/[80%] rounded-md shadow-md">{error}</h1>):""}
    <div className="flex flex-col items-center h-3/2 max-h-[636px] max-w-[528px] w-[85vw] p-2 rounded-3xl shadow-2xl bg-white/70 backdrop-blur-sm  flex-justify">
+     
      <div className="flex justify-start w-2/3 gap-2 p-2 mt-3">
+      
 <div className="md:w-[16rem] w-[10rem]">
+  
 <Image src="/logo.png" height={300}  width={300} layout="responsive"/>
 </div>            
            

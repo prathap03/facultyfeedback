@@ -1,4 +1,5 @@
 import Axios  from "axios";
+import { access } from "fs";
 import { NextPage } from "next";
 import Image from "next/legacy/image";
 import Link from "next/link";
@@ -19,6 +20,7 @@ const registerStudent: NextPage = () => {
     const [departments,setDepartment] = useState();
   
     const [error,setError] = useState("")
+    const [success,setSuccess] = useState("")
 
     
 
@@ -35,11 +37,24 @@ const registerStudent: NextPage = () => {
           section:section,
           year:year
         } 
+
+      
         
-        await Axios.post("https://facultyportal.herokuapp.com/api/users/registerStudent",data)
+        await Axios.post("https://facultyportal.herokuapp.com/api/users/registerStudent",data).then((result)=>{
+        console.log(result)  
+        if(result.data !="User Already Exists"){
+            setSuccess("Student Registered Successfully");
+          setTimeout(()=>{setError("")},5000)
+          }else{
+            setError("Student Already Exists");
+            setTimeout(()=>{setError("")},5000)
+          }
+        })
+      
+        
       }catch(error){
         setError(error.message);
-                await setTimeout(()=>{setError("")},5000)
+        setTimeout(()=>{setError("")},5000)
       }
       
 
@@ -56,15 +71,16 @@ const registerStudent: NextPage = () => {
           <div className="flex  items-center flex-col flex-grow p-[2rem]  ">
             <div  className="flex gap-4 w-[60%] p-4 flex-col scale-110   h-max">
             {error !=""?( <h1 className="p-2 bg-red-200 rounded-md w-[100%] mt-5 text-red-600 shadow-md">{error}</h1>):""}
+            {success !=""?( <h1 className="p-2 bg-green-200 rounded-md w-[100%] mt-5 text-green-600 shadow-md">{success}</h1>):""}
              
-              <h1 className="text-[2rem]">Create Course</h1>
+              <h1 className="text-[2rem]">Register Student</h1>
               <div className="flex flex-col gap-2">
                 <h1>Name:</h1>
-                <input  onInput={(e:any)=>{setName(e.target.value)}}  placeholder="Ex. 20MA204" className="rounded-md p-2 h-[2rem] shadow-sm" type="text" required/>
+                <input  onInput={(e:any)=>{setName(e.target.value)}}  placeholder="Ex. Jhon Doe" className="rounded-md p-2 h-[2rem] shadow-sm" type="text" required/>
               </div>
               <div className="flex flex-col gap-2">
                 <h1>Roll No:</h1>
-                <input onInput={(e:any)=>{setRollNo(e.target.value)}} placeholder="Ex. Discrete Structures and Combinatorics" className="rounded-md p-2 h-[2rem] shadow-sm" type="text" required/>
+                <input onInput={(e:any)=>{setRollNo(e.target.value)}} placeholder="Ex. 71812101001" className="rounded-md p-2 h-[2rem] shadow-sm" type="text" required/>
               </div>
               <div className="flex flex-col gap-2">
                 <h1>Department:</h1>
@@ -88,7 +104,7 @@ const registerStudent: NextPage = () => {
               <div className="flex flex-col gap-2">
                 <h1>Batch:</h1>
                 <select onChange={(e:any)=>{setBatch(e.target.value)}} className="rounded-md p-1 shadow-sm h-[2rem]" name="department" id="cars" required>
-                  <option value=""  selected>Select Credit</option>  
+                  <option value=""  selected>Select Batch</option>  
                   <option value={2023}>2023</option>
                   <option value={2024}>2024</option>
                   <option value={2025}>2025</option>
@@ -130,7 +146,7 @@ const registerStudent: NextPage = () => {
 
               <div className="flex flex-col gap-2">
                 <h1>Email:</h1>
-                <input  onInput={(e:any)=>{setEmail(e.target.value)}}  placeholder="Ex. 20MA204" className="rounded-md p-2 h-[2rem] shadow-sm" type="text" required/>
+                <input  onInput={(e:any)=>{setEmail(e.target.value)}}  placeholder="Ex. example.rollno@srec.ac.in" className="rounded-md p-2 h-[2rem] shadow-sm" type="text" required/>
               </div>
 
               

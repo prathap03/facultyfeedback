@@ -7,6 +7,7 @@ import Header from "../../components/header";
 import Navbar from "../../components/navbar";
 import { useEffect, useState } from 'react';
 import Axios from 'axios';
+import { ClipLoader } from 'react-spinners';
 
 
 
@@ -27,6 +28,7 @@ const Course = () => {
     const [examples,setExamples] = useState(null)
     const [exists,setExists]=useState(false)
     const [materials,setMaterials]=useState(null);
+    const [loading,setLoading] = useState(true); 
  
     const criterions = [
        {name:"1. Punctuality",set:setPunctuality},
@@ -75,7 +77,7 @@ const Course = () => {
     }
 
     useEffect(() => {
-
+      setLoading(true)
       const checkExists = async(id)=>{
         try{
           const post = {cid:id,rollNo:JSON.parse(localStorage.getItem("userInfo")).rollNo}
@@ -104,6 +106,7 @@ const Course = () => {
             const {data} = await Axios.get(`https://facultyportal.herokuapp.com/api/users/course/faculty/${fid}`)
             setFacultyDetails(data);
             console.log(data);
+            setLoading(false)
          }   
 
         const fetchCourse = async (cid)=>{
@@ -138,7 +141,7 @@ const Course = () => {
      }
     
         
-     
+    
     }, [cid])
     
     return (
@@ -146,7 +149,9 @@ const Course = () => {
         <Header/>
   
             <div className="  w-[100%] flex flex-grow flex-col " >
-            {!courseDetails && !facultyDetails || !courseDetails|| !facultyDetails ? (<h1>Loading</h1>):(
+            {loading ? (<div className='flex h-[100%]  m-4 justify-center items-center w-[100%] flex-grow'>
+            <ClipLoader size={60}   color="#3693d6"/>
+          </div>):(
               <div className="flex h-[100%] min-h-screen">
               
               {/* <div className="w-[20.438rem] ml-2 hidden bg-[#001529]/[89%] mt-5 rounded-tr-2xl shadow-xl rounded-xl rounded-bl-2xl h-[50rem] md:flex">hello</div> */}
