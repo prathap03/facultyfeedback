@@ -44,6 +44,7 @@ const Login: NextPage = () => {
     try {
 
       const { data } = await Axios.post('https://facultyportal.herokuapp.com/api/users/signin', { rollNo, password });
+      console.log(data)
       localStorage.setItem('userInfo', JSON.stringify(data));
       const userInfo = JSON.stringify(data);
     if(userInfo){
@@ -51,6 +52,7 @@ const Login: NextPage = () => {
     }
       
     } catch (error) {
+      setError(error.message)
       console.log(error)
     }
     setError(null)
