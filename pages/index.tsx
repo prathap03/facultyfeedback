@@ -25,12 +25,16 @@ export default function Home() {
     'ArrowLeft',
     'ArrowRight',
     'ArrowLeft',
-    'ArrowRight'
+    'ArrowRight',
+    'b',
+    'a'
 ];
 var easterEgg = [];
 if(typeof Audio !="undefined"){
 
   var audio = new Audio('https://previews.customer.envatousercontent.com/files/376286923/preview.mp3');
+  var msg = new Audio('/narration.mp3');
+  msg.volume=1
 }
 
 function arrayEquals(a, b) {
@@ -55,9 +59,13 @@ function arrayEquals(a, b) {
 
     document.body.addEventListener('keydown',(event)=>{
       event.stopImmediatePropagation()
-      if(easterEgg.length==8){
+      if(easterEgg.length==10){
         easterEgg=[]
        }else{
+
+       
+
+
         easterEgg.push(event.key)
       console.log("KONI=> ",easterEgg)
       console.log(konamiCode==easterEgg)
@@ -87,6 +95,8 @@ var end = Date.now() + duration;
   }
 }());
         audio.play();
+        setTimeout(()=>{msg.play();},3000)
+        
 
         
        
@@ -135,13 +145,16 @@ var end = Date.now() + duration;
           {!loading?(
              <div className='flex flex-col gap-4 w-[100%] md:w-[80%]'>
              {courses.map((course)=>{
-               return (
-                 <Link href={`courses/${course._id}`} className='flex p-4 h-[100%] w-[100%] bg-white shadow-xl rounded-md text-[0.8rem] justify-center md:text-[1.7rem] '>
+              
+                return (
+                  <Link href={`courses/${course._id}`} className='flex p-4 h-[100%] w-[100%] bg-white shadow-xl rounded-md text-[0.8rem] justify-center md:text-[1.7rem] '>
+            
+                  <h1>{course.courseId} - {course.courseTitle}</h1>
+                  
+                 </Link>
+                )
+              
            
-                 <h1>{course.courseId} - {course.courseTitle}</h1>
-                 
-                </Link>
-               )
              })}
             
            
