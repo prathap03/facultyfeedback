@@ -145,7 +145,7 @@ var end = Date.now() + duration;
           {!loading?(
              <div className='flex flex-col gap-4 w-[100%] md:w-[80%]'>
              {courses.map((course)=>{
-              
+              if(course.active){
                 return (
                   <Link href={`courses/${course._id}`} className='flex p-4 h-[100%] w-[100%] bg-white shadow-xl rounded-md text-[0.8rem] justify-center md:text-[1.7rem] '>
             
@@ -153,7 +153,15 @@ var end = Date.now() + duration;
                   
                  </Link>
                 )
-              
+              }else{
+                return (
+                  <div  className='flex p-4 h-[100%] w-[100%] bg-red-200 shadow-xl rounded-md text-[0.8rem] justify-center md:text-[1.7rem] '>
+            
+                  <h1>{course.courseId} - {course.courseTitle}</h1>
+                  
+                 </div>
+                )
+              }
            
              })}
             
