@@ -9,6 +9,7 @@ import getCourses  from '../utils/courseAction';
 import styles from '../styles/Home.module.css'
 import Axios from 'axios';
 import { ClipLoader } from 'react-spinners';
+import confetti from 'canvas-confetti';
 
 export default function Home() {
   const router = useRouter() 
@@ -16,6 +17,31 @@ export default function Home() {
 
   var [courses,setCourses]=useState([])
   const [loading,setLoading] = useState(false);
+  const konamiCode = [
+    'ArrowUp',
+    'ArrowUp',
+    'ArrowDown',
+    'ArrowDown',
+    'ArrowLeft',
+    'ArrowRight',
+    'ArrowLeft',
+    'ArrowRight'
+];
+var easterEgg = [];
+if(typeof Audio !="undefined"){
+
+  var audio = new Audio('https://previews.customer.envatousercontent.com/files/376286923/preview.mp3');
+}
+
+function arrayEquals(a, b) {
+  return Array.isArray(a) &&
+      Array.isArray(b) &&
+      a.length === b.length &&
+      a.every((val, index) => val === b[index]);
+}
+
+ 
+
 
   useEffect(() => {
     if (!(localStorage.getItem("userInfo"))) {
@@ -24,6 +50,56 @@ export default function Home() {
         
     
     }
+   
+  
+
+    document.body.addEventListener('keydown',(event)=>{
+      event.stopImmediatePropagation()
+      if(easterEgg.length==8){
+        easterEgg=[]
+       }else{
+        easterEgg.push(event.key)
+      console.log("KONI=> ",easterEgg)
+      console.log(konamiCode==easterEgg)
+      if(arrayEquals(konamiCode,easterEgg)){
+        var duration = 2 * 1000;
+var end = Date.now() + duration;
+
+(function frame() {
+  // launch a few confetti from the left edge
+  confetti({
+    particleCount: 3,
+    angle: 60,
+    spread: 55,
+    origin: { x: 0 }
+  });
+  // and launch a few from the right edge
+  confetti({
+    particleCount: 3,
+    angle: 120,
+    spread: 55,
+    origin: { x: 1 }
+  });
+
+  // keep going until we are out of time
+  if (Date.now() < end) {
+    requestAnimationFrame(frame);
+  }
+}());
+        audio.play();
+
+        
+       
+       
+        easterEgg=[]
+       console.log("k")
+       }
+       }
+      
+       
+      
+    
+    })
 
     const fetchCourses = async () => {
       setLoading(true);
@@ -38,7 +114,11 @@ export default function Home() {
 
   },[])
   return (
-    <div className="flex flex-col min-h-screen h-max md:w-screen bg-slate-100">
+   
+    <div id='body' className="flex flex-col min-h-screen h-max md:w-screen bg-slate-100">
+     <Head>
+     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+      </Head>
     <Header/>
         <div className="flex flex-grow">
           <div className="flex flex-grow ">
@@ -84,7 +164,7 @@ export default function Home() {
         </div>
         
         </div>
-        <div className=" flex sm:relative absolute bottom-0 w-screen text-[0.5rem] md:text-[1rem] sticky-bottom-0 text-white bg-[#001529]/[100%] flex-col items-center justify-center  p-4">
+        <div className=" flex sm:relative absolute bottom-0 w-screen text-[0.5rem] md:text-[1rem] sticky-bottom-0 text-white bg-[#001529]/[89%] flex-col items-center justify-center  p-4">
           <h1>with ❤️ IT</h1>
           <h1>©Copyright 2022</h1>
         </div>

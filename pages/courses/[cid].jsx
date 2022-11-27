@@ -154,7 +154,7 @@ const Course = () => {
             {loading ? (<div className='flex h-[100%]   m-4 justify-center items-center flex-grow'>
             <ClipLoader size={60}   color="#3693d6"/>
           </div>):(
-              <div className="flex flex-grow">
+              <div className="flex flex-grow ">
               
               {/* <div className="w-[20.438rem] ml-2 hidden bg-[#001529]/[89%] mt-5 rounded-tr-2xl shadow-xl rounded-xl rounded-bl-2xl h-[50rem] md:flex">hello</div> */}
              <div className='hidden md:flex'>
@@ -162,7 +162,7 @@ const Course = () => {
              </div>
               
               <div className="flex items-center flex-col flex-grow md:p-[2rem] p-[1rem]" >
-                <div className="flex gap-4 w-[100%] p-4  h-max">
+                <div className="flex gap-4 w-[100%] p-4">
                   <div className="w-[5.25rem] md:h-[11.813rem] md:w-[8.9rem] h-[5rem] bg-white rounded-xl
                    shadow-md">
                   <Image className="rounded-md " src={facultyDetails.profileUrl} width={150} height={200} layout='intrinsic'  />
@@ -180,7 +180,7 @@ const Course = () => {
                 </div>
                 <h1 className=" md:text-[2rem] text-[1.3rem]">{courseDetails.courseId} - {courseDetails.courseTitle}</h1>
                 {!(exists)?(
-                  <div className="w-[100%] h-max min-h-screen md:p-4 p-2 rounded-md bg-slate-200  shadow-md">
+                  <div className="w-[100%] md:p-4 p-2 rounded-md bg-slate-200   shadow-md">
                   <div className="flex flex-col gap-8 mt-10 " >
                     {criterions.map((criterion)=>{
                        return(
@@ -236,7 +236,7 @@ const Course = () => {
             )}
             
             </div>
-            <div className='flex text-[0.5rem] md:text-[1rem]  relative bottom-0 w-screen  text-white bg-[#001529]/[89%] flex-col items-center  justify-center p-4'>
+            <div className='flex text-[0.5rem] md:text-[1rem]  relative bottom-0   text-white bg-[#001529]/[89%] flex-col items-center  justify-center p-4'>
               <h1>with ❤️ IT</h1> 
               <h1>©Copyright 2022</h1>
              
