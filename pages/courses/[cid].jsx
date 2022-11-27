@@ -85,9 +85,11 @@ const Course = () => {
         
         if(data){
           setExists(data.data);
+          setLoading(false)
         }
         }catch(error){
           console.log(error)
+         
         }
       }
 
@@ -106,7 +108,7 @@ const Course = () => {
             const {data} = await Axios.get(`https://facultyportal.herokuapp.com/api/users/course/faculty/${fid}`)
             setFacultyDetails(data);
             console.log(data);
-            setLoading(false)
+           
          }   
 
         const fetchCourse = async (cid)=>{
@@ -149,13 +151,13 @@ const Course = () => {
         <Header/>
   
             <div className="  w-[100%] flex flex-grow flex-col " >
-            {loading ? (<div className='flex h-[100%]  m-4 justify-center items-center w-[100%] flex-grow'>
+            {loading ? (<div className='flex h-[100%]   m-4 justify-center items-center flex-grow'>
             <ClipLoader size={60}   color="#3693d6"/>
           </div>):(
-              <div className="flex h-[100%] min-h-screen">
+              <div className="flex flex-grow">
               
               {/* <div className="w-[20.438rem] ml-2 hidden bg-[#001529]/[89%] mt-5 rounded-tr-2xl shadow-xl rounded-xl rounded-bl-2xl h-[50rem] md:flex">hello</div> */}
-             <div className='hidden md:flex '>
+             <div className='hidden md:flex'>
              <Navbar/>
              </div>
               
@@ -184,16 +186,16 @@ const Course = () => {
                        return(
                           <div className="flex flex-col gap-4 md:p-4 p-2 bg-white/90 w-[100%] rounded-2xl shadow-md">
                           <h1 className="md:text-[1.8rem]  text-[0.8rem]">{criterion.name}</h1>
-                            <fieldset name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} onChange={(e)=>{criterion.set(e.target.value)}} className='flex md:gap-4 gap-1 text-[0.7rem] md:text-[1.6rem]'>
-                            <input value={1} type="radio"  className="md:scale-150" name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
+                            <fieldset name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} onChange={(e)=>{criterion.set(e.target.value)}} className='flex md:gap-4 gap-[0.4rem] text-[0.7rem] md:text-[1.6rem]'>
+                            <input value={1} type="radio"  className="scale-[80%] md:scale-150" name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
                             <label htmlFor="1">Poor</label>
-                            <input value={2} type="radio" className="md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
+                            <input value={2} type="radio" className="scale-[80%] md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
                             <label htmlFor="Moderate">Moderate</label>
-                            <input value={3} type="radio" className="md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
+                            <input value={3} type="radio" className="scale-[80%] md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
                             <label htmlFor="Good">Good</label>
-                            <input value={4} type="radio" className="md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
+                            <input value={4} type="radio" className="scale-[80%] md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
                             <label htmlFor="Moderate">Very Good</label>
-                            <input value={5} type="radio" className="md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
+                            <input value={5} type="radio" className="scale-[80%] md:scale-150 " name={criterion.name.split(" ")[0]} id={criterion.name.split(" ")[0]} />
                             <label htmlFor="Moderate">Excellent</label>
                             </fieldset>
                 
@@ -218,7 +220,7 @@ const Course = () => {
                     <h1>Feedback Completed</h1>
                   </div>
                 )}
-  {!(exists)?(<div className="flex w-[100%] justify-end mt-10">
+  {!(exists)?(<div className="flex  w-[100%] justify-end mt-10">
       
       <button onClick={()=>{handleSubmit()}} className="md:p-4 p-2 m-2 text-white md:text-[1.4rem] bg-blue-500 rounded-full">SUBMIT</button>
       </div>
