@@ -56,7 +56,7 @@ function arrayEquals(a, b) {
         
     
     }else{
-      setLoading(false);
+      setLogLoading(false);
     }
    
   
