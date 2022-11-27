@@ -48,6 +48,7 @@ function arrayEquals(a, b) {
 
 
   useEffect(() => {
+    setLoading(true)
     if (!(localStorage.getItem("userInfo"))) {
      
         router.push('/login')
@@ -130,6 +131,10 @@ var end = Date.now() + duration;
      <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
       </Head>
     <Header/>
+        {loading?(<div className='flex h-[100%]   m-4 justify-center items-center flex-grow'>
+            <ClipLoader size={60}   color="#3693d6"/>
+          </div>):(
+        <>
         <div className="flex flex-grow">
           <div className="flex flex-grow ">
   
@@ -189,6 +194,7 @@ var end = Date.now() + duration;
           <h1>with ❤️ IT</h1>
           <h1>©Copyright 2022</h1>
         </div>
+        </>)}
       </div>
   );
 }

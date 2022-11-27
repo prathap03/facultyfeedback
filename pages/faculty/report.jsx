@@ -119,7 +119,7 @@ function report() {
         "4": data.statement[4].punctuality,
         "3": data.statement[3].punctuality,
         "<=2": lteTwo.punctuality,
-        "% in 3,4,5": parseFloat((p345.punctuality.split("%"))[0])
+        "% in 3,4,5": ((p345.punctuality.split("%"))[0])
       },
       {
         name: "Regularity",
