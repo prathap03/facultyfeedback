@@ -16,7 +16,8 @@ export default function Home() {
 
 
   var [courses,setCourses]=useState([])
-  const [loading,setLoading] = useState(false);
+  const [loading,setLoading] = useState(true);
+  const [logLoading,setLogLoading] = useState(true);
   const konamiCode = [
     'ArrowUp',
     'ArrowUp',
@@ -48,12 +49,14 @@ function arrayEquals(a, b) {
 
 
   useEffect(() => {
-    setLoading(true)
+    setLogLoading(true)
     if (!(localStorage.getItem("userInfo"))) {
      
         router.push('/login')
         
     
+    }else{
+      setLoading(false);
     }
    
   
@@ -130,11 +133,12 @@ var end = Date.now() + duration;
      <Head>
      <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
       </Head>
-    <Header/>
-        {loading?(<div className='flex h-[100%]   m-4 justify-center items-center flex-grow'>
+   
+        {logLoading?(<div className='flex h-[100%]   m-4 justify-center items-center flex-grow'>
             <ClipLoader size={60}   color="#3693d6"/>
           </div>):(
         <>
+         <Header/>
         <div className="flex flex-grow">
           <div className="flex flex-grow ">
   
