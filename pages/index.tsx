@@ -117,7 +117,7 @@ var end = Date.now() + duration;
 
     const fetchCourses = async () => {
       setLoading(true);
-      const { data } = await Axios.get('https://facultyportal.herokuapp.com/api/users/course/get');
+      const { data } = await Axios.get('https://private-autumn-pullover.glitch.me/api/users/course/get');
       setCourses(data);
       setLoading(false);
     }

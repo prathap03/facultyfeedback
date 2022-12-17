@@ -69,7 +69,7 @@ const Course = () => {
 
         const data = {rollNo:rollNo,data:{courseId:courseId,courseCode:courseCode,courseTitle:courseTitle,facultyId:fid,facultyName:facultyName,feedback:details}}
 
-        const result = await Axios.post("https://facultyportal.herokuapp.com/api/feedback/insert",data).then((result)=>{
+        const result = await Axios.post("https://private-autumn-pullover.glitch.me/api/feedback/insert",data).then((result)=>{
           router.push("/success")
         })
 
@@ -81,7 +81,7 @@ const Course = () => {
       const checkExists = async(id)=>{
         try{
           const post = {cid:id,rollNo:JSON.parse(localStorage.getItem("userInfo")).rollNo}
-        const data = await Axios.post("https://facultyportal.herokuapp.com/api/feedback/check",post)
+        const data = await Axios.post("https://private-autumn-pullover.glitch.me/api/feedback/check",post)
         
         if(data){
           setExists(data.data);
@@ -105,7 +105,7 @@ const Course = () => {
     
      try{
         const fetchFaculty = async (fid)=>{
-            const {data} = await Axios.get(`https://facultyportal.herokuapp.com/api/users/course/faculty/${fid}`)
+            const {data} = await Axios.get(`https://private-autumn-pullover.glitch.me/api/users/course/faculty/${fid}`)
             setFacultyDetails(data);
             console.log(data);
            
@@ -114,7 +114,7 @@ const Course = () => {
         const fetchCourse = async (cid)=>{
             if(cid){
                
-                const {data} = await Axios.get(`https://facultyportal.herokuapp.com/api/users/course/student/${cid}`)
+                const {data} = await Axios.get(`https://private-autumn-pullover.glitch.me/api/users/course/student/${cid}`)
                 setCourseDetails(data);
                 console.log(courseDetails)
                 let fid;

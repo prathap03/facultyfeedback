@@ -44,7 +44,7 @@ const Login: NextPage = () => {
     e.preventDefault()
     setLoading(true)
     try {
-      const { data } = await Axios.post('https://facultyportal.herokuapp.com/api/users/signin', { rollNo, password });
+      const { data } = await Axios.post('https://private-autumn-pullover.glitch.me/api/users/signin', { rollNo, password });
       console.log(data)
       localStorage.setItem('userInfo', JSON.stringify(data));
       const userInfo = JSON.stringify(data);
@@ -126,6 +126,15 @@ Approved by AICTE, permanently Affiliated to Anna University, Chennai.</p>
 </div>
 </form>
   );
-};
+
+
+
+ }
+
+//get server side props
+
+
+
+
 
 export default Login;
