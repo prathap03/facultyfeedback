@@ -1,14 +1,11 @@
 import { NextPage } from "next";
 import Image from "next/legacy/image";
-import Link from "next/link";
-import Header from "../components/header";
-import Feedback from "../components/feedback";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import signin  from '../utils/userAction';
 import Axios from 'axios';
 import { ClipLoader } from 'react-spinners';
+
 
 
 const Login: NextPage = () => {
@@ -17,6 +14,7 @@ const Login: NextPage = () => {
   var [password,setPassword]=useState("")
   const [error, setError] = useState(null);
   const [loading,setLoading] = useState(false)
+  const [initLoad,setInitLoad] = useState(true);
   const router = useRouter() 
 
   // const redirect = router.location.search
@@ -28,13 +26,18 @@ const Login: NextPage = () => {
 
 
   useEffect(() => {
-    setLoading(true)
+    
+    // setLoading(true)
     console.log(localStorage.getItem("userInfo"))
     if (localStorage.getItem("userInfo")) {
+      setLoading(true)
+      debugger
         router.push('/')
     
     }
-    setLoading(false)
+
+    // setLoading(false)
+    setInitLoad(false);
 
   })
   
@@ -43,22 +46,32 @@ const Login: NextPage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     setLoading(true)
+  
     try {
+      setLoading(true)
       const { data } = await Axios.post('https://private-autumn-pullover.glitch.me/api/users/signin', { rollNo, password });
+      
       console.log(data)
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      const userInfo = JSON.stringify(data);
-    if(userInfo){
+     
+    if(data){
+        localStorage.setItem('userInfo', JSON.stringify(data));
+        setLoading(false);
         document.location.href = '/';
+        
     }
       
     } catch (error) {
       setError(error.message)
-      console.log(error)
+      console.log(error.message)
     }
+    // debugger;
     setError(null)
+    setLoading(false);
     
     };
+
+
+  
 
 
   return (
@@ -82,7 +95,8 @@ const Login: NextPage = () => {
 <Image className="relative" src="/srecbg.jpg"  layout="fill"/>
 <div className="relative flex flex-col items-center justify-center w-screen h-screen gap-2">
 {error?( <h1 className="w-[528px] text-[1.4rem] backdrop-blur-sm p-2 mt-5 text-red-600 bg-red-200/[80%] rounded-md shadow-md">{error}</h1>):""}
- {!loading?(
+{/* <button type="button" onClick={()=>setLoading(!loading)}>LOADER TEST</button> */}
+ {!loading || initLoad?(
     <div className="flex flex-col items-center h-3/2 max-h-[636px] max-w-[528px] w-[85vw] p-2 rounded-3xl shadow-2xl bg-white/70 backdrop-blur-sm  flex-justify">
      
     <div className="flex justify-start w-2/3 gap-2 p-2 mt-3">
@@ -114,7 +128,7 @@ Approved by AICTE, permanently Affiliated to Anna University, Chennai.</p>
           </div>
           <input name="password" value={password} onChange={(event)=>{setPassword(event.target.value)}}  className="p-2 h-[3.8rem] text-[1.25rem] placeholder:text-[D9D9D9] placeholder:text-[1.25rem] rounded-full shadow-md  focus:outline-none" style={{padding:"20px"}} type="password" placeholder="Password" required/>
       </div>
-      <button type="submit"  className="p-2  w-1/2 rounded-full md:h-[4rem]  m-6 font-bold text-white bg-[#00BDC9] md:text-[1.5rem]">LOGIN</button>
+      <button type="submit" className="p-2  w-1/2 rounded-full md:h-[4rem]  m-6 font-bold text-white bg-[#00BDC9] md:text-[1.5rem]">LOGIN</button>
   </div>
 
  ):(<div className='flex  m-4 justify-center items-center w-[100%] flex-grow'>

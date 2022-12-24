@@ -22,7 +22,7 @@ export default function Profile() {
 
     
     return (
-        <div>
+        <div className="flex flex-col min-h-screen h-max md:w-screen bg-slate-100">
                <Head>
       
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -38,7 +38,7 @@ export default function Profile() {
           </Head>
             <Header/>
             {userDetails?(
-                 <div className='flex gap-2 h-[calc(100vh_-_81px)]'>
+                 <div className='flex flex-grow'>
                 <div className='hidden md:flex '>
                 <Navbar/>
                 </div>
@@ -66,8 +66,8 @@ export default function Profile() {
                                    role="img"
                                    className="r-1cvl2hr r-4qtqp9 r-yyyyoo r-1xvli5t r-f9ja8p r-og9te1 r-bnwqim r-1plcrui r-lrvibr"
                                    data-testid="icon-verified"
-                                   width={16}
-                                   height={16}
+                                   width={'0.75rem'}
+                                   height={'0.75rem'}
                                  
                                  >
                                    <g>

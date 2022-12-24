@@ -5,6 +5,7 @@ import Link from "next/link";
 import {  useState } from "react";
 import Header from "../../components/header";
 import Navbar from "../../components/navbar";
+import { motion } from 'framer-motion';
 
 const createCourse: NextPage = () => {
     const [courseCode,setCourseCode] = useState("")
@@ -38,7 +39,7 @@ const createCourse: NextPage = () => {
           
             }catch(error){
                 setError(error.message);
-                await setTimeout(()=>{setError("")},5000)
+                setTimeout(() => { setError(""); }, 5000)
                
             }
         }
@@ -74,21 +75,47 @@ const createCourse: NextPage = () => {
 
     }
 
+    const checkCode =async ()=>{
+    
+      const {data}=await Axios.post("http://localhost:5000/api/course/check",{courseCode:courseCode})
+      console.log(data);
+      if(data){
+        setError(data)
+        setTimeout(() => { setError(""); }, 5000)
+      }
+    }
+
   return (
-    <div className="flex flex-col h-[100%] bg-slate-400/[60%] ">
+    <div className="flex flex-col h-[100%] min-h-screen bg-slate-400/[60%] ">
       <Header />
       {/*admin header*/}
-      <div className="h-[100%] flex  w-[100%] ">
-        <Navbar />
+      <div className="flex   w-[100%] ">
+        {/* <Navbar /> */}
         <div className="flex w-[100%]">
-          <div className="flex  items-center flex-col flex-grow p-[2rem]  ">
-            <div  className="flex gap-4 w-[60%] p-4 flex-col scale-110   h-max">
-            {error !=""?( <h1 className="p-2 bg-red-200 rounded-md w-[100%] mt-5 text-red-600 shadow-md">{error}</h1>):""}
+          <div className="flex  items-center flex-col flex-grow p-[4rem]  ">
+            <div  className="flex gap-4 w-[50%] p-4 flex-col scale-110   h-max">
+            {error !=""?( 
+            <motion.div initial="hidden" animate="visible" variants={{
+              hidden: {
+                scale: .8,
+                opacity: 0
+              },
+              visible: {
+                scale: 1,
+                opacity: 1,
+                transition: {
+                  delay: .4
+                }
+              },
+            }}>
+            <h1 className="p-2 bg-red-200 rounded-md  w-[100%] mt-5 text-red-600 shadow-md">{error}</h1>
+            </motion.div>
+            ):""}
              
               <h1 className="text-[2rem]">Create Course</h1>
               <div className="flex flex-col gap-2">
                 <h1>Course Code:</h1>
-                <input  onInput={(e)=>{setCourseCode(e.target.value)}}  placeholder="Ex. 20MA204" className="rounded-md p-2 h-[2rem] shadow-sm" type="text" required/>
+                <input  onInput={(e)=>{setCourseCode(e.target.value)}} onBlur={()=>checkCode()} placeholder="Ex. 20MA204" className="rounded-md p-2 h-[2rem] shadow-sm" type="text" required/>
               </div>
               <div className="flex flex-col gap-2">
                 <h1>Course Title:</h1>
@@ -125,15 +152,15 @@ const createCourse: NextPage = () => {
               <div className="flex flex-col gap-2">
                 <h1>Course Commonto:</h1>
                 <div className="flex gap">
-                <select onChange={(e)=>{setSelectedDepartment(e.target.value)}} className="p-1 rounded-full rounded-r-none w-[100%]" required>
+                <select onChange={(e)=>{setSelectedDepartment(e.target.value)}} className="p-1 rounded-md rounded-r-none w-[100%]" required>
                     <option value="default" selected>Select Department to add</option>
                     {departments.map((department)=>{
                         return (<option   className="" value={department}>{department}</option>)
                     })}
                 </select>
-                <button onClick={()=>{addDepartment()}} className="p-2 border-l-0 rounded-l-none text-white shadow-md bg-blue-500 rounded-full w-[20%]">Add Department</button>
+                <button onClick={()=>{addDepartment()}} className="p-2 border-l-0 rounded-l-none text-white shadow-md bg-blue-500 rounded-md w-[20%]">Add Department</button>
                 </div>
-                <div className="flex flex-wrap mt-2 gap-2 p-4 bg-white/[45%] shadow-md backdrop-blur-[60%] rounded-lg">
+                <div className="flex flex-wrap mt-2 gap-2 p-2 bg-white/[45%] shadow-md backdrop-blur-[60%] rounded-lg">
                     {commonTo.length>0?commonTo.map((common)=>{
                         return (
                             <div className="p-2 text-white text-center rounded-full flex gap-2 min-w-[4rem] shadow-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ...">
@@ -191,7 +218,7 @@ const createCourse: NextPage = () => {
                 </select>
               </div>
                 
-              <button onClick={()=>{CreateCourse()}} className="p-2 text-white bg-blue-400 rounded-full">Create Course</button>
+              <button onClick={()=>{CreateCourse()}} className="p-2 m-4  text-white bg-blue-400 rounded-full">Create Course</button>
               
             </div>
             
@@ -202,6 +229,12 @@ const createCourse: NextPage = () => {
           
         </div>
       </div>
+      <div className='flex text-[0.5rem] md:text-[1rem]  relative bottom-0   text-white bg-[#001529]/[89%] flex-col items-center  justify-center p-4'>
+              <h1>with ❤️ IT</h1> 
+              <h1>©Copyright 2022</h1>
+             
+            </div>
+            
     </div>
   );
 };
