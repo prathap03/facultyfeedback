@@ -10,15 +10,30 @@ import Head from '../node_modules/next/head'
 export default function Profile() {
     const userDetails = {profileUrl:'/profile.jpeg',name:'Joe Prathap P J',department:'B.Tech IT',class:'A',batch:'2025',tutour:'Mr Prabhu T N',year:'2',rollNo:'71812105043'}
     const [studentDetails,setStudentDetails] = useState(null);
-
+    const [imageUrl,setImageUrl] = useState("https://portal.srec.ac.in/uploads/students_photos/");
     useEffect(() => {
      if(typeof window!=='undefined' && localStorage.getItem("userInfo")){
       setStudentDetails(JSON.parse(localStorage.getItem("userInfo")).userDetails);
       
+      setImageUrl(imageUrl+ JSON.parse(localStorage.getItem("userInfo")).userDetails.rollNo+".jpg")
+     
+   
+      
      }
+     if(studentDetails && studentDetails.rollNo){
+
+       
+     }
+     
+
     }, [])
+    
+
+    
 
     console.log(studentDetails)
+
+
 
     
     return (
@@ -46,8 +61,8 @@ export default function Profile() {
                  {userDetails?(
                      <>
                     
-                     {userDetails ? (
-                          <img src={userDetails.profileUrl} className='md:w-[10rem] w-[6rem] h-[8.7rem] md:h-[12rem] object-cover rounded-lg' alt="profile"/>
+                     {userDetails && studentDetails ? (
+                          <img onError={()=>setImageUrl("https://portal.srec.ac.in/uploads/students_photos/"+studentDetails.rollNo+'.jpeg')} src={imageUrl} className='md:w-[10rem] w-[6rem] h-[8.7rem] md:h-[12rem] object-cover rounded-lg' alt="profile"/>
                      ):<h1>Loading...</h1>}
                 
                  <div className='flex text-[0.6rem] md:text-[1rem] flex-col gap-2'>
@@ -59,6 +74,7 @@ export default function Profile() {
                      Name: 
                      </h1>
                     {studentDetails.name}
+                   
                     {studentDetails.creator ? (
                                    <svg
                                    viewBox="0 0 30 30"
@@ -101,3 +117,5 @@ export default function Profile() {
 
     )
 }
+
+
