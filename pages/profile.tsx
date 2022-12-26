@@ -62,7 +62,9 @@ export default function Profile() {
                      <>
                     
                      {userDetails && studentDetails ? (
-                          <img onError={()=>setImageUrl("https://portal.srec.ac.in/uploads/students_photos/"+studentDetails.rollNo+'.jpeg')} src={imageUrl} className='md:w-[10rem] w-[6rem] h-[8.7rem] md:h-[12rem] object-cover rounded-lg' alt="profile"/>
+                          <img 
+                          loading='eager'
+                          onError={()=>setImageUrl("https://portal.srec.ac.in/uploads/students_photos/"+studentDetails.rollNo+'.jpeg')} src={imageUrl} className='md:w-[10rem] w-[6rem] h-[8.7rem] md:h-[12rem] object-cover rounded-lg' alt="profile"/>
                      ):<h1>Loading...</h1>}
                 
                  <div className='flex text-[0.6rem] md:text-[1rem] flex-col gap-2'>

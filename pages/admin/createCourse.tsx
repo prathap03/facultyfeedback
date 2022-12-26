@@ -125,16 +125,16 @@ const createCourse: NextPage = () => {
                 <h1>Course Department:</h1>
                 <select onChange={(e)=>{setCourseDepartment(e.target.value)}} className="rounded-md p-1 shadow-sm h-[2rem]" name="department" id="cars" required>
                   <option value=""  selected>Select Department</option>  
-                  <option value="volvo">B.E CSE</option>
-                  <option value="saab">B.Tech IT</option>
-                  <option value="mercedes">B.Tech AIDS</option>
-                  <option value="mercedes">M.Tech CSE</option>
-                  <option value="audi">B.E ECE</option>
-                  <option value="audi">B.E EEE</option>
-                  <option value="audi">B.E EIE</option>
-                  <option value="audi">B.E CIVIL</option>
-                  <option value="audi">B.E MECH</option>
-                  <option value="audi">B.E RA</option>
+                  <option value="B.E CSE">B.E CSE</option>
+                  <option value="B.Tech IT">B.Tech IT</option>
+                  <option value="B.Tech AIDS">B.Tech AIDS</option>
+                  <option value="M.Tech CSE">M.Tech CSE</option>
+                  <option value="B.E ECE">B.E ECE</option>
+                  <option value="B.E EEE">B.E EEE</option>
+                  <option value="B.E EIE">B.E EIE</option>
+                  <option value="B.E CIVIL">B.E CIVIL</option>
+                  <option value="B.E MECH">B.E MECH</option>
+                  <option value="B.E RA">B.E RA</option>
                 </select>
               </div>
               <div className="flex flex-col gap-2">
