@@ -92,6 +92,18 @@ const registerFaculty: NextPage = () => {
               </div>
               
               </div>
+              <div className="flex flex-col gap-2">
+                <h1>Designation:</h1>
+                <select onChange={(e:any)=>{setDepartment(e.target.value)}} className="rounded-md p-1 shadow-sm h-[2rem]" name="department" id="cars" required>
+                  <option value=""  selected>Select Designation</option>  
+                  <option value="B.E CSE">AP</option>
+                  <option value="B.Tech IT">AP(Sr.Gr)</option>
+                  <option value="B.Tech AIDS">AP(Sl.Gr)</option>
+                  <option value="M.Tech CSE">Assso.Prof</option>
+                  <option value="B.E ECE">ASP</option>
+                  <option value="B.E EEE">Prof</option>
+                </select>
+              </div>
               
               <div className="flex flex-col gap-2">
                 <h1>Department:</h1>
@@ -114,18 +126,7 @@ const registerFaculty: NextPage = () => {
                 </select>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <h1>Designation:</h1>
-                <select onChange={(e:any)=>{setDepartment(e.target.value)}} className="rounded-md p-1 shadow-sm h-[2rem]" name="department" id="cars" required>
-                  <option value=""  selected>Select Designation</option>  
-                  <option value="B.E CSE">AP</option>
-                  <option value="B.Tech IT">AP(Sr.Gr)</option>
-                  <option value="B.Tech AIDS">AP(Sl.Gr)</option>
-                  <option value="M.Tech CSE">Assso.Prof</option>
-                  <option value="B.E ECE">ASP</option>
-                  <option value="B.E EEE">Prof</option>
-                </select>
-              </div>
+              
 
 
 
