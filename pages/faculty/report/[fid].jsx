@@ -35,7 +35,7 @@ function Report() {
   const romanNumerals = { 1: "I", 2: "II", 3: "III", 4: "IV" };
 
   const generateReport = async () => {
-    const { data } = await Axios.get(
+    const { data } = await Axios.post(
       "https://private-autumn-pullover.glitch.me/api/feedback/generate",
       { fid: fid }
     );
