@@ -1,5 +1,6 @@
 import Axios from "axios";
 import Image from "next/legacy/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import {
   BarChart,
