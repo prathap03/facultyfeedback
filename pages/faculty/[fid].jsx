@@ -12,7 +12,7 @@ const CourseFeedback = ()=>{
     
 
     const generateReport=async ()=>{
-        const {data} =await Axios.get("https://facultyportal.herokuapp.com/api/feedback/generate")
+        const {data} =await Axios.get("https://private-autumn-pullover.glitch.me/api/feedback/generate")
         setReport(data.feedback)
     }
 

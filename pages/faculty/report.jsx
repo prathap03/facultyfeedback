@@ -1,26 +1,20 @@
 import Axios from "axios";
 import Image from "next/legacy/image";
-import React from "react";
 import { useState } from "react";
 import {
   BarChart,
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
-  Label,
-  LabelList,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from "recharts";
 
-
-function report() {
-
-
- const [data,setData] = useState(null)
-
+function Report() {
+  const [data, setData] = useState(null);
+  const router = useRouter();
+  const { fid } = router.query;
   const [department, setDepartment] = useState("<Department>");
   const [facultyName, setFacultyName] = useState("<facultyName>");
   const [courseCode, setCourseCode] = useState("<courseCode>");
@@ -35,13 +29,14 @@ function report() {
   const [four, setFour] = useState(null);
   const [three, setThree] = useState(null);
   const [lteTwo, setLteTwo] = useState(null);
-  const [p345,setP345] = useState(null);
-  const [isGenerated,setIsGenerated] = useState(false)
-  const romanNumerals = {1:'I',2:'II',3:'III',4:'IV'};
+  const [p345, setP345] = useState(null);
+  const [isGenerated, setIsGenerated] = useState(false);
+  const romanNumerals = { 1: "I", 2: "II", 3: "III", 4: "IV" };
 
   const generateReport = async () => {
     const { data } = await Axios.get(
-      "https://private-autumn-pullover.glitch.me/api/feedback/generate"
+      "https://private-autumn-pullover.glitch.me/api/feedback/generate",
+      { fid: fid }
     );
     setReport(data);
     setFacultyName(
@@ -66,7 +61,7 @@ function report() {
     let three = data.statement[3];
     let four = data.statement[4];
     let five = data.statement[5];
-    
+
     let lteTwo = {
       punctuality: 0,
       regularity: 0,
@@ -95,128 +90,128 @@ function report() {
       examples: 0,
     };
 
-    
-
     const criterions = Object.keys(lteTwo);
 
-    criterions.map((criteria)=>{
-      lteTwo[criteria]+=two[criteria]+one[criteria]
-      p345[criteria]+=three[criteria]+four[criteria]+five[criteria]
-      
-    })
+    criterions.map((criteria) => {
+      lteTwo[criteria] += two[criteria] + one[criteria];
+      p345[criteria] += three[criteria] + four[criteria] + five[criteria];
+    });
 
-    console.log(p345)
+    console.log(p345);
 
-    criterions.map((criteria)=>{
-      p345[criteria]=String(((p345[criteria]/data.noOfStudentsCompleted)*100).toFixed(1))+"%"
-    })
+    criterions.map((criteria) => {
+      p345[criteria] =
+        String(
+          ((p345[criteria] / data.noOfStudentsCompleted) * 100).toFixed(1)
+        ) + "%";
+    });
 
     let graph = [
       {
         name: "Punchuality",
         "total no of students": data.rolls.length,
-        "5": data.statement[5].punctuality,
-        "4": data.statement[4].punctuality,
-        "3": data.statement[3].punctuality,
+        5: data.statement[5].punctuality,
+        4: data.statement[4].punctuality,
+        3: data.statement[3].punctuality,
         "<=2": lteTwo.punctuality,
-        "% in 3,4,5": ((p345.punctuality.split("%"))[0])
+        "% in 3,4,5": p345.punctuality.split("%")[0],
       },
       {
         name: "Regularity",
         "total no of students": data.rolls.length,
-        "5": data.statement[5].regularity,
-        "4": data.statement[4].regularity,
-        "3": data.statement[3].regularity,
+        5: data.statement[5].regularity,
+        4: data.statement[4].regularity,
+        3: data.statement[3].regularity,
         "<=2": lteTwo.regularity,
-        "% in 3,4,5": (p345.regularity.split("%"))[0]
+        "% in 3,4,5": p345.regularity.split("%")[0],
       },
       {
         name: "Personality",
         "total no of students": data.rolls.length,
-        "5": data.statement[5].personality,
-        "4": data.statement[4].personality,
-        "3": data.statement[3].personality,
+        5: data.statement[5].personality,
+        4: data.statement[4].personality,
+        3: data.statement[3].personality,
         "<=2": lteTwo.personality,
-        "% in 3,4,5": (p345.personality.split("%"))[0]
+        "% in 3,4,5": p345.personality.split("%")[0],
       },
       {
         name: "Clarity in Expression",
         "total no of students": data.rolls.length,
-        "5": data.statement[5].clarity,
-        "4": data.statement[4].clarity,
-        "3": data.statement[3].clarity,
+        5: data.statement[5].clarity,
+        4: data.statement[4].clarity,
+        3: data.statement[3].clarity,
         "<=2": lteTwo.personality,
-        "% in 3,4,5": (p345.clarity.split("%"))[0]
+        "% in 3,4,5": p345.clarity.split("%")[0],
       },
       {
         name: "Pace of covering syllubus",
         "total no of students": data.rolls.length,
-        "5": data.statement[5].pace,
-        "4": data.statement[4].pace,
-        "3": data.statement[3].pace,
+        5: data.statement[5].pace,
+        4: data.statement[4].pace,
+        3: data.statement[3].pace,
         "<=2": lteTwo.pace,
-        "% in 3,4,5": (p345.pace.split("%"))[0]
+        "% in 3,4,5": p345.pace.split("%")[0],
       },
       {
         name: "Encourage to raise and clarify doubts",
         "total no of students": data.rolls.length,
-        "5": data.statement[5].raiseDoubts,
-        "4": data.statement[4].raiseDoubts,
-        "3": data.statement[3].raiseDoubts,
+        5: data.statement[5].raiseDoubts,
+        4: data.statement[4].raiseDoubts,
+        3: data.statement[3].raiseDoubts,
         "<=2": lteTwo.raiseDoubts,
-        "% in 3,4,5": (p345.raiseDoubts.split("%"))[0]
+        "% in 3,4,5": p345.raiseDoubts.split("%")[0],
       },
       {
         name: "Ability to maintain Discipline",
         "total no of students": data.rolls.length,
-        "5": data.statement[5].discipline,
-        "4": data.statement[4].discipline,
-        "3": data.statement[3].discipline,
+        5: data.statement[5].discipline,
+        4: data.statement[4].discipline,
+        3: data.statement[3].discipline,
         "<=2": lteTwo.discipline,
-        "% in 3,4,5": (p345.discipline.split("%"))[0]
+        "% in 3,4,5": p345.discipline.split("%")[0],
       },
       {
         name: "Provision of feedback on learning deficiencies",
         "total no of students": data.rolls.length,
-        "5": data.statement[5].feedback,
-        "4": data.statement[4].feedback,
-        "3": data.statement[3].feedback,
+        5: data.statement[5].feedback,
+        4: data.statement[4].feedback,
+        3: data.statement[3].feedback,
         "<=2": lteTwo.feedback,
-        "% in 3,4,5": (p345.feedback.split("%"))[0]
+        "% in 3,4,5": p345.feedback.split("%")[0],
       },
       {
         name: "Ablity to sustain students attention and interest",
         "total no of students": data.rolls.length,
-        "5": data.statement[5].attention,
-        "4": data.statement[4].attention,
-        "3": data.statement[3].attention,
+        5: data.statement[5].attention,
+        4: data.statement[4].attention,
+        3: data.statement[3].attention,
         "<=2": lteTwo.attention,
-        "% in 3,4,5": (p345.attention.split("%"))[0]
+        "% in 3,4,5": p345.attention.split("%")[0],
       },
       {
         name: "Provision of sufficient course materials",
         "total no of students": data.rolls.length,
-        "5": data.statement[5].materials,
-        "4": data.statement[4].materials,
-        "3": data.statement[3].materials,
+        5: data.statement[5].materials,
+        4: data.statement[4].materials,
+        3: data.statement[3].materials,
         "<=2": lteTwo.materials,
-        "% in 3,4,5": (p345.materials.split("%"))[0]
+        "% in 3,4,5": p345.materials.split("%")[0],
       },
       {
         name: "Citations, Examples, Illustrations etc.",
         "total no of students": data.rolls.length,
-        "5": data.statement[5].examples,
-        "4": data.statement[4].examples,
-        "3": data.statement[3].examples,
+        5: data.statement[5].examples,
+        4: data.statement[4].examples,
+        3: data.statement[3].examples,
         "<=2": lteTwo.examples,
-        "% in 3,4,5": (p345.examples.split("%"))[0]
+        "% in 3,4,5": p345.examples.split("%")[0],
       },
     ];
     setData(graph);
 
     setLteTwo(lteTwo);
     setP345(p345);
-    setIsGenerated(true)
+    setIsGenerated(true);
   };
 
   return (
@@ -323,8 +318,18 @@ function report() {
                     </td>
                     <td className="p-2 border border-black border-left-0 text-[0.8rem]">
                       {courseDepartment != "<courseDepartment>"
-                        ? `${romanNumerals[report.courseDetails.courseAssignedYear]} ` +
-                          courseDepartment.join(`, ${romanNumerals[report.courseDetails.courseAssignedYear]} `)
+                        ? `${
+                            romanNumerals[
+                              report.courseDetails.courseAssignedYear
+                            ]
+                          } ` +
+                          courseDepartment.join(
+                            `, ${
+                              romanNumerals[
+                                report.courseDetails.courseAssignedYear
+                              ]
+                            } `
+                          )
                         : courseDepartment}
                     </td>
                   </tr>
@@ -555,67 +560,124 @@ function report() {
               </tbody>
             </table>
             <div className="h-[12rem] border border-black border-t-0">
-              {isGenerated==false?(<Image
-                src="/sgraph.png"
-                height={40}
-                width={150}
-                layout="responsive"
-              />):(
+              {isGenerated == false ? (
+                <Image
+                  src="/sgraph.png"
+                  height={40}
+                  width={150}
+                  layout="responsive"
+                />
+              ) : (
                 <div className="h-[12rem] w-[100%]">
-                <ResponsiveContainer width={"100%"} height="100%">
-
-                <BarChart
-                barGap={1}
-                className="w-[100%]"
-               
-                data={data}
-                barSize={10}
-                margin={{
-                  top: 20,
-                  right: 30,
-                  left: 20,
-              
-                 
-                }}
-              >
-                
-               
-                <XAxis dataKey="name"  height={54} allowDecimals={true}  allowDataOverflow={true} interval={0}  tick={{ fontSize: '0.46rem',fontWeight:'bold',marginBottom:'8px', width: '100px', wordWrap: 'break-word' }}>
-               
-               </XAxis>
-                <YAxis type="number" domain={[0,100]} />
-                <Tooltip />
-                <Legend   className="mt-10" margin={{
-                  top: 20,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                 
-                }}/>
-                <Bar  isAnimationActive={false} label={{dataKey:'total no of students',position:'top',fontSize:'0.6rem',fill:'black'}}  dataKey="total no of students" fill="lightblue" >
-                {/* <LabelList dataKey="total no of students" position="top"/> */}
-                </Bar>
-                <Bar isAnimationActive={false} label={{dataKey:'5',position:'top',fontSize:'0.6rem',fill:'black'}}  dataKey="5" fill="orange">
-               
-                </Bar>
-                <Bar  isAnimationActive={false} label={{dataKey:'4',position:'top',fontSize:'0.6rem',fill:'black'}}  dataKey="4" fill="grey">
-                
-                </Bar>
-                <Bar isAnimationActive={false} label={{dataKey:'3',position:'top',fontSize:'0.6rem',fill:'black'}} dataKey="3" fill="yellow">
-                
-                </Bar>
-                <Bar isAnimationActive={false}  dataKey="<=2" label={{dataKey:'<=2',position:'top',fontSize:'0.6rem',fill:'black'}} fill="darkblue">
-               
-                </Bar>
-                <Bar  isAnimationActive={false}   dataKey="% in 3,4,5" label={{dataKey:'% in 3,4,5',position:'top',fontSize:'0.6rem',fill:'black'}} fill="lightgreen">
-              
-                </Bar>
-                
-              </BarChart>
-              </ResponsiveContainer>
-              </div>
+                  <ResponsiveContainer width={"100%"} height="100%">
+                    <BarChart
+                      barGap={1}
+                      className="w-[100%]"
+                      data={data}
+                      barSize={10}
+                      margin={{
+                        top: 20,
+                        right: 30,
+                        left: 20,
+                      }}
+                    >
+                      <XAxis
+                        dataKey="name"
+                        height={54}
+                        allowDecimals={true}
+                        allowDataOverflow={true}
+                        interval={0}
+                        tick={{
+                          fontSize: "0.46rem",
+                          fontWeight: "bold",
+                          marginBottom: "8px",
+                          width: "100px",
+                          wordWrap: "break-word",
+                        }}
+                      ></XAxis>
+                      <YAxis type="number" domain={[0, 100]} />
+                      <Tooltip />
+                      <Legend
+                        className="mt-10"
+                        margin={{
+                          top: 20,
+                          right: 30,
+                          left: 20,
+                          bottom: 5,
+                        }}
+                      />
+                      <Bar
+                        isAnimationActive={false}
+                        label={{
+                          dataKey: "total no of students",
+                          position: "top",
+                          fontSize: "0.6rem",
+                          fill: "black",
+                        }}
+                        dataKey="total no of students"
+                        fill="lightblue"
+                      >
+                        {/* <LabelList dataKey="total no of students" position="top"/> */}
+                      </Bar>
+                      <Bar
+                        isAnimationActive={false}
+                        label={{
+                          dataKey: "5",
+                          position: "top",
+                          fontSize: "0.6rem",
+                          fill: "black",
+                        }}
+                        dataKey="5"
+                        fill="orange"
+                      ></Bar>
+                      <Bar
+                        isAnimationActive={false}
+                        label={{
+                          dataKey: "4",
+                          position: "top",
+                          fontSize: "0.6rem",
+                          fill: "black",
+                        }}
+                        dataKey="4"
+                        fill="grey"
+                      ></Bar>
+                      <Bar
+                        isAnimationActive={false}
+                        label={{
+                          dataKey: "3",
+                          position: "top",
+                          fontSize: "0.6rem",
+                          fill: "black",
+                        }}
+                        dataKey="3"
+                        fill="yellow"
+                      ></Bar>
+                      <Bar
+                        isAnimationActive={false}
+                        dataKey="<=2"
+                        label={{
+                          dataKey: "<=2",
+                          position: "top",
+                          fontSize: "0.6rem",
+                          fill: "black",
+                        }}
+                        fill="darkblue"
+                      ></Bar>
+                      <Bar
+                        isAnimationActive={false}
+                        dataKey="% in 3,4,5"
+                        label={{
+                          dataKey: "% in 3,4,5",
+                          position: "top",
+                          fontSize: "0.6rem",
+                          fill: "black",
+                        }}
+                        fill="lightgreen"
+                      ></Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
               )}
-             
             </div>
             <div className="flex justify-between flex-grow p-4 mt-8 font-semibold">
               <h1>Signature of the Faculty</h1>
@@ -628,4 +690,4 @@ function report() {
   );
 }
 
-export default report;
+export default Report;
